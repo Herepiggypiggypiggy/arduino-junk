@@ -1,0 +1,85 @@
+
+
+int button1=10,button3=12;
+int k=0, t=0, tt=0, o=0, oo=0;
+
+void setup() 
+{
+  for(int i=0; i<10; i++)
+  {
+    pinMode(i, OUTPUT);
+  }
+  for(int i=10; i<13; i++)
+  {
+    pinMode(i, INPUT);
+    digitalWrite(i, HIGH);
+  }
+}
+
+void loop() 
+{
+  int i=0;
+  int j=0;
+  //BUTTON1 functionality
+  
+  if (digitalRead(button1)==0)
+  {
+    o++;
+    oo=0;
+    while(digitalRead(button1)==0)
+    {
+      delay(100);
+      oo++;
+      if (oo==4)
+      {
+        t--;
+        o--;
+      }
+    }
+  }
+
+  //Button3 functionality
+  
+  if (digitalRead(button3)==0)
+  {
+    t++;
+    tt=0;
+    while(digitalRead(button3)==0)
+    {
+      delay(100);
+      tt++;
+      if(tt==4)
+      {
+        t--;
+        o--;
+      }
+    }
+  }
+
+  //Set right leds
+  for(i=0; i<o; i++)
+  {
+    digitalWrite(5-i, HIGH);
+  }
+  for(i=0; i<4-o; i++)
+  {
+    digitalWrite(2+i, LOW);
+  }
+  //Set left leds
+  for(i=0; i<t; i++)
+  {
+    digitalWrite(6+i, HIGH);
+  }
+  for(i=0; i<4-t; i++)
+  {
+    digitalWrite(9-i, LOW);
+  }
+  if(t==5)
+  {
+    t=0;
+  }
+  if(o==5)
+  {
+    o=0;
+  }
+}
